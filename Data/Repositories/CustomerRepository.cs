@@ -13,7 +13,7 @@ public class CustomerRepository(DataContext context)
 
     // UPDATE
 
-    // DELETE
+    // DELET
 
     public async Task<bool> DeleteAsync(int id)
     {
