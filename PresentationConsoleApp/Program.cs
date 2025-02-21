@@ -3,16 +3,26 @@ using Data.Contexts;
 using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using PresentationConsoleApp;
+using Presentation.ConsoleApp; // Korrekt namespace
 
-var services = new ServiceCollection()
-    .AddDbContext<DataContext>(x => x.UseSqlServer())
-    .AddScoped<CustomerRepository>()
-    .AddScoped<ProjectRepository>()
-    .AddScoped<CustomerService>()
-    .AddScoped<ProjectService>()
-    .AddScoped<MenuDialogs>()
-    .BuildServiceProvider();
+namespace Presentation.ConsoleApp;
 
-var menuDialogs = services.GetRequiredService<MenuDialogs>();
-await menuDialogs.MenuOptions();
+class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var services = new ServiceCollection()
+            .AddDbContext<DataContext>(x => x.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Projects\\DataStorage_Assignment\\Data\\Databases\\local_database.mdf;Integrated Security=True;Connect Timeout=30"))
+            .AddScoped<CustomerRepository>()
+            .AddScoped<ProjectRepository>()
+            .AddScoped<CustomerService>()
+            .AddScoped<ProjectService>()
+             .AddScoped<IMenuDialogs, MenuDialogsCustomer>()
+            .AddScoped<IMenuDialogs, MenuDialogsProject>()
+            .AddScoped<MenuDialogs>()
+            .BuildServiceProvider();
+
+        var menuDialogs = services.GetRequiredService<MenuDialogs>();
+        await menuDialogs.MenuOptions();
+    }
+}

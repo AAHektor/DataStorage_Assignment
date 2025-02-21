@@ -9,11 +9,16 @@ public class CustomerService(CustomerRepository customerRepository)
 {
     private readonly CustomerRepository _customerRepository = customerRepository;
 
-    public async Task CreateCustomerAsync(CustomerRegistrationForm form)
+    public async Task<bool> CreateCustomerAsync(CustomerRegistrationForm form)
     {
         var customerEntity = CustomerFactory.Create(form);
 
-        await _customerRepository.AddAsync(customerEntity!);
+        if (customerEntity != null)
+        {
+            await _customerRepository.AddAsync(customerEntity);
+            return true;
+        }
+        return false;
     }
 
     public async Task<IEnumerable<Customer?>> GetCustomersAsync()

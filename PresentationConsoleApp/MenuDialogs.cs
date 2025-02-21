@@ -1,24 +1,51 @@
-﻿using Business.Services;
+﻿using Business.Models;
+using Business.Services;
+using System.Linq.Expressions;
 
-namespace PresentationConsoleApp;
-
-public class MenuDialogs(CustomerService customerService, ProjectService projectService)
+namespace Presentation.ConsoleApp
 {
-    private readonly CustomerService _customerService = customerService;
-    private readonly ProjectService _projectService = projectService;
-
-
-    public async Task MenuOptions()
+    public class MenuDialogs
     {
-        while(true)
-        {
-            Console.WriteLine("1. Create New Customer");
-            Console.WriteLine("2. Create New Project");
-            Console.WriteLine("3. Get All Customers");
-            Console.WriteLine("4. Get All Projects");
-            Console.WriteLine("5. Get Customer");
-            Console.WriteLine("6. Get Project");
-        }
-    }
+        private readonly IMenuDialogs _customerMenu;
+        private readonly IMenuDialogs _projectMenu;
 
+        public MenuDialogs(IMenuDialogs customerMenu, IMenuDialogs projectMenu)
+        {
+            _customerMenu = customerMenu;
+            _projectMenu = projectMenu;
+        }
+
+        public async Task MenuOptions()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Main Menu");
+                Console.WriteLine("1. Manage Projects");
+                Console.WriteLine("2. Manage Customers");
+                Console.WriteLine("3. Exit");
+
+                var option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1":
+                        await _projectMenu.ShowMenu();
+                        break;
+
+                    case "2":
+                        await _customerMenu.ShowMenu();
+                        break;
+
+                    case "3":
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid choice, please try again");
+                        break;
+                }
+            }
+        }
+
+    }
 }

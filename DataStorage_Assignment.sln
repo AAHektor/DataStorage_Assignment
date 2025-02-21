@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{E0075CD2-F81F-4BB8-BA1C-DF16FFBFAE8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationConsoleApp", "PresentationConsoleApp\PresentationConsoleApp.csproj", "{E3683D87-0394-4904-BC19-C01139F0F490}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.ConsoleApp", "PresentationConsoleApp\Presentation.ConsoleApp.csproj", "{E3683D87-0394-4904-BC19-C01139F0F490}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
