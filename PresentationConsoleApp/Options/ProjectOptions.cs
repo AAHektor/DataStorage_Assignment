@@ -93,6 +93,10 @@ public class ProjectOptions
             return;
         }
 
+        // Med hjälp av ChatGPT för att skapa detta try, catch block:
+        // Koden försöker hämta ett projekt baserat på ID, uppdatera dess detaljer om det finns och sedan spara uppdateringen.
+        // Om något går fel, fångas undantaget och ett felmeddelande visas för användaren.
+        // Om uppdateringen lyckas eller misslyckas, informeras användaren.
         try
         {
             var project = await _projectService.GetProjectByIdAsync(id);

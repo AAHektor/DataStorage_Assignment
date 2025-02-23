@@ -18,6 +18,10 @@ public class UserInterface : IUserInterface
         Console.WriteLine(message);
     }
 
+    // Denna kod är genererad av ChatGPT:
+    // Metoden ber användaren om ett ID, validerar det och returnerar ett giltigt ID
+    // om det finns, eller -1 om användaren vill avbryta. Om användaren anger felaktig
+    // information, fortsätter den att fråga tills den får ett korrekt ID.
     public int GetValidProjectId(string prompt, IEnumerable<Project> projects)
     {
         while (true)
@@ -134,6 +138,10 @@ public class UserInterface : IUserInterface
         }
     }
 
+    // Denna kod är genererad av ChatGPT:
+    // Metoden ber användaren om ett kund-ID, validerar det och returnerar ett giltigt ID
+    // om det finns, eller -1 om användaren vill avbryta. Om användaren anger felaktig
+    // information, fortsätter den att fråga tills den får ett giltigt svar.
     public int GetValidCustomerId(IEnumerable<Customer> customers)
     {
         while (true)
