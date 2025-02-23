@@ -3,7 +3,9 @@ using Data.Contexts;
 using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Presentation.ConsoleApp; // Korrekt namespace
+using Presentation.ConsoleApp.Interfaces;
+using Presentation.ConsoleApp.Options;
+using Presentation.ConsoleApp.Menus; // Korrekt namespace
 
 namespace Presentation.ConsoleApp;
 
@@ -17,9 +19,11 @@ class Program
             .AddScoped<ProjectRepository>()
             .AddScoped<CustomerService>()
             .AddScoped<ProjectService>()
-             .AddScoped<IMenuDialogs, MenuDialogsCustomer>()
-            .AddScoped<IMenuDialogs, MenuDialogsProject>()
+            .AddScoped<MenuDialogsCustomer>()
+            .AddScoped<MenuDialogsProject>()
             .AddScoped<MenuDialogs>()
+            .AddScoped<CustomerOptions>()
+            .AddScoped<ProjectOptions>()
             .BuildServiceProvider();
 
         var menuDialogs = services.GetRequiredService<MenuDialogs>();

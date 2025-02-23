@@ -1,15 +1,17 @@
 ﻿using Business.Models;
 using Business.Services;
+using Presentation.ConsoleApp.Interfaces;
 using System.Linq.Expressions;
 
-namespace Presentation.ConsoleApp
+namespace Presentation.ConsoleApp.Menus
 {
     public class MenuDialogs
     {
-        private readonly IMenuDialogs _customerMenu;
-        private readonly IMenuDialogs _projectMenu;
+        private readonly MenuDialogsCustomer _customerMenu;
+        private readonly MenuDialogsProject _projectMenu;
 
-        public MenuDialogs(IMenuDialogs customerMenu, IMenuDialogs projectMenu)
+
+        public MenuDialogs(MenuDialogsCustomer customerMenu, MenuDialogsProject projectMenu)
         {
             _customerMenu = customerMenu;
             _projectMenu = projectMenu;

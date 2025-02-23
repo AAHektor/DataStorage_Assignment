@@ -1,56 +1,18 @@
 ﻿using Business.Models;
 using Business.Services;
 
-namespace Presentation.ConsoleApp;
+namespace Presentation.ConsoleApp.Options;
 
-public class MenuDialogsProject : IMenuDialogs
+public class ProjectOptions
 {
-    private readonly CustomerService _customerService;
     private readonly ProjectService _projectService;
+    private readonly CustomerService _customerService;
 
-    public MenuDialogsProject(CustomerService customerService, ProjectService projectService)
+    public ProjectOptions(ProjectService projectService, CustomerService customerService)
     {
-        _customerService = customerService;
         _projectService = projectService;
+        _customerService = customerService;
     }
-
-    public async Task ShowMenu()
-    {
-        while (true)
-        {
-            Console.Clear();
-            Console.WriteLine("Manage Projects");
-            Console.WriteLine("1. Create Projects");
-            Console.WriteLine("2. List Projects");
-            Console.WriteLine("3. Update Projects");
-            Console.WriteLine("4. Delete Projects");
-            Console.WriteLine("5. Return to Main Menu");
-
-            var option = Console.ReadLine();
-
-            switch (option)
-            {
-                case "1":
-                    await CreateNewProject();
-                    break;
-                case "2":
-                    await GetAllProjects();
-                    break;
-                case "3":
-                    await UpdateProject();
-                    break;
-                case "4":
-                    await DeleteProject();
-                    break;
-                case "5":
-                    return;
-                default:
-                    Console.WriteLine("Invalid choice, please try again!");
-                    break;
-            }
-        }
-    }
-
 
     public async Task CreateNewProject()
     {
@@ -59,7 +21,8 @@ public class MenuDialogsProject : IMenuDialogs
             var customers = await _customerService.GetCustomersAsync();
             var customerList = customers.ToList();
 
-            Console.WriteLine("Select a customer (or press 'Q' to cancel):");
+            Console.Clear();
+            Console.WriteLine("\nSelect a customer (or press 'Q' to cancel):");
             for (int i = 0; i < customerList.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {customerList[i].CustomerName} (ID: {customerList[i].Id})");
@@ -118,15 +81,31 @@ public class MenuDialogsProject : IMenuDialogs
     public async Task GetAllProjects()
     {
         var projects = await _projectService.GetProjectsAsync();
+        Console.Clear();
         foreach (var project in projects)
         {
-            Console.WriteLine($"ID: {project.Id} | Project Number: {project.ProjectNumber} | Title: {project.Title} | Customer: {project.CustomerName}");
+            Console.WriteLine($"\nID: {project.Id}");
+            Console.WriteLine($"Project Number: {project.ProjectNumber}");
+            Console.WriteLine($"Title: {project.Title}");
+            Console.WriteLine($"Description: {project.Description}");
+            Console.WriteLine($"Start Date: {project.StartDate}");
+            Console.WriteLine($"End Date: {project.EndDate}");
+            Console.WriteLine($"Customer: {project.CustomerName}");
         }
         Console.ReadLine();
     }
 
     public async Task UpdateProject()
     {
+        var projects = await _projectService.GetProjectsAsync();
+        Console.Clear();
+        Console.WriteLine("\nProjects to update:");
+
+        foreach (var project in projects)
+        {
+            Console.WriteLine($"ID: {project.Id} | Project Number: {project.ProjectNumber} | Title: {project.Title}");
+        }
+
         Console.Write("Enter project ID to update (or press 'Q' to cancel): ");
         var input = Console.ReadLine();
 
@@ -149,6 +128,25 @@ public class MenuDialogsProject : IMenuDialogs
                 var title = Console.ReadLine();
                 project.Title = string.IsNullOrWhiteSpace(title) ? project.Title : title;
 
+                Console.Write($"New Description ({project.Description}): ");
+                var description = Console.ReadLine();
+                project.Description = string.IsNullOrWhiteSpace(description) ? project.Description : description;
+
+                Console.Write($"New Start Date (Current: {project.StartDate:yyyy-MM-dd}): ");
+                var startDateInput = Console.ReadLine();
+                if (DateTime.TryParse(startDateInput, out DateTime newStartDate))
+                {
+                    project.StartDate = newStartDate;
+                }
+
+                Console.Write($"New End Date (Current: {project.EndDate:yyyy-MM-dd}): ");
+                var endDateInput = Console.ReadLine();
+                if (DateTime.TryParse(endDateInput, out DateTime newEndDate))
+                {
+                    project.EndDate = newEndDate;
+                }
+
+
                 var result = await _projectService.UpdateProjectAsync(project);
                 Console.WriteLine(result ? "Project updated successfully!" : "Project update failed.");
 
@@ -169,6 +167,15 @@ public class MenuDialogsProject : IMenuDialogs
 
     public async Task DeleteProject()
     {
+        var projects = await _projectService.GetProjectsAsync();
+        Console.Clear();
+        Console.WriteLine("\nProjects to delete:");
+
+        foreach (var project in projects)
+        {
+            Console.WriteLine($"ID: {project.Id} | Project Number: {project.ProjectNumber} | Title: {project.Title}");
+        }
+
         Console.WriteLine("Enter Project ID to delete (or press 'Q' to cancel): ");
         var input = Console.ReadLine();
 

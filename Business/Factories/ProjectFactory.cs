@@ -12,7 +12,6 @@ public static class ProjectFactory
         if (form == null)
             return null;
 
-        // Generera projektnummer asynkront
         string projectNumber = await GenerateProjectNumberAsync(projectRepository);
 
         return new ProjectEntity
@@ -26,12 +25,28 @@ public static class ProjectFactory
         };
     }
 
-    //
+    // Med hjälp av ChatGPT.
+    // Denna metod skapar ett nytt projektnummer genom att kolla på det senaste projektnumret i databasen,
+    // ta bort "P-" och öka numret med 1. Om det inte finns något projekt, börjar numret på "P-101".
     private static async Task<string> GenerateProjectNumberAsync(ProjectRepository projectRepository)
     {
-        var latestProject = (await projectRepository.GetAsync()).OrderByDescending(p => p.Id).FirstOrDefault();
-        int newId = latestProject != null ? latestProject.Id + 1 : 101;  // Om inget tidigare projekt finns, börja med 101
-        return $"P-{newId}";
+        var latestProject = (await projectRepository.GetAsync())
+        .OrderByDescending(p => p.ProjectNumber)
+        .FirstOrDefault();
+
+        int newProjectNumber = 101;
+
+        if (latestProject != null)
+        {
+            var lastProjectNumber = latestProject.ProjectNumber;
+            var numberPart = lastProjectNumber.Substring(2);
+            if (int.TryParse(numberPart, out var lastNumber))
+            {
+                newProjectNumber = lastNumber + 1;
+            }
+        }
+
+        return $"P-{newProjectNumber}";
     }
 
 

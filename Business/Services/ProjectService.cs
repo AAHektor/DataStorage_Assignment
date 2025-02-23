@@ -54,6 +54,9 @@ public class ProjectService
         existingProject.Title = project.Title;
         existingProject.Description = project.Description;
 
+        existingProject.StartDate = project.StartDate;
+        existingProject.EndDate = project.EndDate;
+
         await _projectRepository.UpdateAsync(existingProject);
         return true;
     }
