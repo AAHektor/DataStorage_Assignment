@@ -16,7 +16,11 @@ public static class CustomerFactory
         CustomerName = entity.CustomerName,
     };
 
-    //chatgpt
+    // Denna kod är genererad av ChatGPT: 
+    // Metoden kollar om både en kund och en befintlig kundentitet finns. 
+    // Om någon av dem är null, returneras null utan att göra något. 
+    // Om båda finns, uppdaterar den befintliga kundentiteten med kundens namn 
+    // och returnerar den uppdaterade entiteten. 
     public static CustomerEntity? Create(Customer customer, CustomerEntity existingEntity)
     {
         if (customer == null || existingEntity == null)

@@ -38,7 +38,11 @@ public class CustomerService(CustomerRepository customerRepository)
         return CustomerFactory.Create(customerEntity!);
     }
 
-    //chatgpt...
+    // Denna kod är Genererad av ChatGPT:
+    // Metoden hämtar en kund från databasen baserat på kundens ID. 
+    // Om kunden inte finns, returneras false. 
+    // Om kunden finns, uppdateras kundens namn och den uppdaterade kunden sparas i databasen. 
+    // Metoden returnerar true om uppdateringen lyckades.
     public async Task<bool> UpdateCustomerAsync(Customer customer)
     {
         var existingCustomer = await _customerRepository.GetAsync(x => x.Id == customer.Id);

@@ -4,6 +4,7 @@ using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Presentation.ConsoleApp.Interfaces;
+using Presentation.ConsoleApp.Services;
 using Presentation.ConsoleApp.Options;
 using Presentation.ConsoleApp.Menus; // Korrekt namespace
 
@@ -22,6 +23,7 @@ class Program
             .AddScoped<MenuDialogsCustomer>()
             .AddScoped<MenuDialogsProject>()
             .AddScoped<MenuDialogs>()
+            .AddScoped<IUserInterface,UserInterface>()
             .AddScoped<CustomerOptions>()
             .AddScoped<ProjectOptions>()
             .BuildServiceProvider();

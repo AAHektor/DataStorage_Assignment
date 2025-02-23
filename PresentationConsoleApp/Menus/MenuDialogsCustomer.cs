@@ -1,6 +1,4 @@
-﻿using Business.Models;
-using Business.Services;
-using Presentation.ConsoleApp.Interfaces;
+﻿using Presentation.ConsoleApp.Interfaces;
 using Presentation.ConsoleApp.Options;
 
 namespace Presentation.ConsoleApp.Menus;
@@ -22,7 +20,8 @@ public class MenuDialogsCustomer : IMenuDialogs
             Console.WriteLine("Manage Customers:");
             Console.WriteLine("1. Create Customer");
             Console.WriteLine("2. List Customers");
-            Console.WriteLine("3. Return to Main Menu");
+            Console.WriteLine("3. Delete Customer");
+            Console.WriteLine("4. Return to Main Menu");
             Console.Write("Select an option: ");
 
             var option = Console.ReadLine();
@@ -36,6 +35,9 @@ public class MenuDialogsCustomer : IMenuDialogs
                     await _customerOptions.GetAllCustomers();
                     break;
                 case "3":
+                    await _customerOptions.DeleteCustomer();
+                    break;
+                case "4":
                     return;
                 default:
                     Console.WriteLine("Invalid choice, try again!");

@@ -1,6 +1,4 @@
-﻿using Business.Models;
-using Business.Services;
-using Presentation.ConsoleApp.Interfaces;
+﻿using Presentation.ConsoleApp.Interfaces;
 using Presentation.ConsoleApp.Options;
 
 namespace Presentation.ConsoleApp.Menus;

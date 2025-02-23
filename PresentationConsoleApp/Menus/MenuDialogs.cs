@@ -1,9 +1,4 @@
-﻿using Business.Models;
-using Business.Services;
-using Presentation.ConsoleApp.Interfaces;
-using System.Linq.Expressions;
-
-namespace Presentation.ConsoleApp.Menus
+﻿namespace Presentation.ConsoleApp.Menus
 {
     public class MenuDialogs
     {
